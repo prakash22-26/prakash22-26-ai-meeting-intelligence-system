@@ -42,7 +42,7 @@ export default function TranscriptForm({
 
       const response = await axios.post(
 
-        "prakash22-26-ai-meeting-intelligence-system-production.up.railway.app",
+        "https://prakash22-26-ai-meeting-intelligence-system-production.up.railway.app",
 
         formData,
 
