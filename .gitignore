@@ -1,0 +1,22 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Environment
+.env
+
+# Next.js
+.next/
+node_modules/
+
+# Whisper cache
+.cache/
+
+# Temp files
+temp_*
+*.mp3
+
+# OS
+.DS_Store
+Thumbs.db
