@@ -18,7 +18,7 @@ client = OpenAI(
 
 def chunk_text(
     text,
-    chunk_size=10000
+    chunk_size=8000
 ):
 
     chunks = []
@@ -137,7 +137,7 @@ Required JSON structure:
   "action_items": [
     {{
       "task": "",
-      "priority": "High",
+      "priority": "High"
     }}
   ],
 
@@ -180,7 +180,7 @@ Transcript Chunk:
             }
         ],
 
-        temperature=0.3
+        temperature=0.3,
         max_completion_tokens=4096
     )
 
@@ -197,7 +197,12 @@ Transcript Chunk:
         .strip()
     )
 
-    return json.loads(content)
+    try:
+        return json.loads(content)
+    except json.JSONDecodeError:
+        print("Invalid JSON received from analyze_chunk:")
+        print(content)
+        raise
 
 
 # -----------------------------------
@@ -283,7 +288,12 @@ Required JSON structure:
 
   "detailed_discussions": [],
 
-  "technical_topics_discussed": [],
+  "technical_topics_discussed": [
+      {
+        "topic": "",
+        "details": ""
+      }
+  ],
 
   "business_topics_discussed": [],
 
@@ -346,7 +356,8 @@ CHUNK ANALYSIS:
             }
         ],
 
-        temperature=0.3
+        temperature=0.3,
+        max_completion_tokens=4096
     )
 
     content = (
@@ -362,7 +373,12 @@ CHUNK ANALYSIS:
         .strip()
     )
 
-    return json.loads(content)
+    try:
+        return json.loads(content)
+    except json.JSONDecodeError:
+        print("Invalid JSON received:")
+        print(content)
+        raise
 
 
 # -----------------------------------
@@ -372,7 +388,34 @@ CHUNK ANALYSIS:
 def generate_summary(
     transcript
 ):
-
+    if not transcript or not transcript.strip():
+        return {
+            "meeting_overview": {},
+            "participants_detected": [],
+            "chronological_flow": [],
+            "important_points": [],
+            "detailed_discussions": [],
+            "technical_topics_discussed": [],
+            "business_topics_discussed": [],
+            "frontend_discussions": [],
+            "backend_discussions": [],
+            "database_discussions": [],
+            "api_discussions": [],
+            "deployment_discussions": [],
+            "security_discussions": [],
+            "testing_discussions": [],
+            "ai_or_ml_discussions": [],
+            "performance_scalability_discussions": [],
+            "action_items": [],
+            "decisions_made": [],
+            "questions_and_answers": [],
+            "problems_or_risks": [],
+            "future_plans": [],
+            "important_notes": [],
+            "next_steps": [],
+            "final_conclusion": ""
+        }
+        
     try:
 
         # SPLIT LARGE TRANSCRIPT
@@ -411,7 +454,6 @@ def generate_summary(
     except Exception as e:
 
         print(str(e))
-
         return {
 
             "meeting_overview": {},
