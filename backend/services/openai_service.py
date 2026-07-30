@@ -180,8 +180,7 @@ Transcript Chunk:
             }
         ],
 
-        temperature=0.3,
-        max_completion_tokens=4096
+        temperature=0.3
     )
 
     content = (
@@ -351,8 +350,7 @@ CHUNK ANALYSIS:
             }
         ],
 
-        temperature=0.3,
-        max_completion_tokens=4096
+        temperature=0.3
     )
 
     content = (
