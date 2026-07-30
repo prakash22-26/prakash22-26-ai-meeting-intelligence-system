@@ -29,16 +29,16 @@ export default function TranscriptForm({
 
       formData.append("file", file);
 
+      const API = process.env.NEXT_PUBLIC_API_URL;
+
       const response = await axios.post(
-        "https://prakash22-26-ai-meeting-intelligence.onrender.com",
-
+        `${API}/api/upload`,
         formData,
-
         {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-        },
+        }
       );
 
       setResult(response.data);
