@@ -90,9 +90,9 @@ def build_detailed_transcript(segments):
 
     for segment in segments:
 
-        start = round(segment["start"], 2)
-        end = round(segment["end"], 2)
-        text = segment["text"].strip()
+        start = round(segment.start, 2)
+        end = round(segment.end, 2)
+        text = segment.text.strip()
 
         transcript_parts.append(
             f"[START: {start}s - END: {end}s]\n\n{text}\n"
@@ -198,13 +198,13 @@ def transcribe_file(
 
                 {
                     "start":
-                        segment["start"],
+                        segment.start,
 
                     "end":
-                        segment["end"],
+                        segment.end,
 
                     "text":
-                        segment["text"]
+                        segment.text
                 }
 
                 for segment in segments
