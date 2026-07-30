@@ -18,7 +18,7 @@ client = OpenAI(
 
 def chunk_text(
     text,
-    chunk_size=5000
+    chunk_size=10000
 ):
 
     chunks = []
@@ -59,7 +59,17 @@ IMPORTANT RULES:
 """
 
     user_prompt = f"""
-Analyze this transcript chunk deeply.
+Analyze this transcript exhaustively.
+
+Do not summarize briefly.
+
+Extract every technical detail, business discussion, architecture decision,
+coding discussion, deployment topic, API discussion, testing discussion,
+database discussion, AI discussion, performance concern, security concern,
+future plan, blocker, and action item.
+
+When participants explain a concept, include the explanation in detail.
+Do not omit repetitive information if it contributes to understanding.
 
 Your goal:
 - understand discussions
@@ -171,6 +181,7 @@ Transcript Chunk:
         ],
 
         temperature=0.3
+        max_completion_tokens=4096
     )
 
     content = (
@@ -218,7 +229,20 @@ Preserve:
 """
 
     user_prompt = f"""
-Generate ONE final complete enterprise meeting intelligence report.
+Generate ONE final enterprise meeting intelligence report.
+
+Requirements:
+- Do not summarize briefly.
+- Capture every important discussion.
+- Explain each technical topic in detail.
+- Preserve chronological order.
+- Include all frontend, backend, database, API, deployment and AI discussions.
+- Produce comprehensive action items.
+- Include every decision made.
+- Include every risk and blocker.
+- Expand the meeting overview into multiple paragraphs.
+- The overall_summary should be detailed and at least 500 words when the transcript contains sufficient information.
+- Do not omit information simply to make the response shorter.
 
 IMPORTANT:
 - Merge duplicate information
@@ -250,7 +274,12 @@ Required JSON structure:
     }}
   ],
 
-  "important_points": [],
+  "important_points": [
+     {
+        "title": "",
+        "description": ""
+      }
+  ],
 
   "detailed_discussions": [],
 
