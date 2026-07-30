@@ -18,7 +18,7 @@ client = OpenAI(
 
 def chunk_text(
     text,
-    chunk_size=5000
+    chunk_size=10000
 ):
 
     chunks = []
