@@ -1,6 +1,6 @@
 import os
 
-from groq import Groq
+from openai import OpenAI
 
 from moviepy import VideoFileClip
 
