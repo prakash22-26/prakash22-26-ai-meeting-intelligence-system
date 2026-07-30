@@ -278,12 +278,7 @@ Required JSON structure:
     }}
   ],
 
-  "important_points": [
-     {{
-        "title": "",
-        "description": ""
-      }}
-  ],
+  "important_points": [],
 
   "detailed_discussions": [],
 
