@@ -30,7 +30,7 @@ export default function TranscriptForm({
       formData.append("file", file);
 
       const response = await axios.post(
-        "https://prakash22-26-ai-meeting-intelligence-system-production.up.railway.app/api/upload",
+        "https://prakash22-26-ai-meeting-intelligence.onrender.com",
 
         formData,
 
