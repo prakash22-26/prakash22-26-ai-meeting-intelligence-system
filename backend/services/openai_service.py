@@ -288,12 +288,7 @@ Required JSON structure:
 
   "detailed_discussions": [],
 
-  "technical_topics_discussed": [
-      {{
-        "topic": "",
-        "details": ""
-      }}
-  ],
+  "technical_topics_discussed": [],
 
   "business_topics_discussed": [],
 
@@ -388,34 +383,6 @@ CHUNK ANALYSIS:
 def generate_summary(
     transcript
 ):
-    if not transcript or not transcript.strip():
-        return {
-            "meeting_overview": {},
-            "participants_detected": [],
-            "chronological_flow": [],
-            "important_points": [],
-            "detailed_discussions": [],
-            "technical_topics_discussed": [],
-            "business_topics_discussed": [],
-            "frontend_discussions": [],
-            "backend_discussions": [],
-            "database_discussions": [],
-            "api_discussions": [],
-            "deployment_discussions": [],
-            "security_discussions": [],
-            "testing_discussions": [],
-            "ai_or_ml_discussions": [],
-            "performance_scalability_discussions": [],
-            "action_items": [],
-            "decisions_made": [],
-            "questions_and_answers": [],
-            "problems_or_risks": [],
-            "future_plans": [],
-            "important_notes": [],
-            "next_steps": [],
-            "final_conclusion": ""
-        }
-        
     try:
 
         # SPLIT LARGE TRANSCRIPT
