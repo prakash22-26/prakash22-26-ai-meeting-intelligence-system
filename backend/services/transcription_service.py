@@ -1,6 +1,6 @@
 import os
 
-from faster_whisper import WhisperModel
+from groq import Groq
 
 from moviepy import VideoFileClip
 
@@ -9,13 +9,8 @@ from moviepy import VideoFileClip
 # LOAD MODEL
 # -----------------------------------
 
-model = WhisperModel(
-
-    "small",
-
-    device="auto",
-
-    compute_type="int8"
+client = Groq(
+    api_key=os.getenv("GROQ_API_KEY")
 )
 
 
@@ -88,41 +83,21 @@ def extract_audio(
 # BUILD TIMELINE TRANSCRIPT
 # -----------------------------------
 
-def build_detailed_transcript(
-    segments
-):
+def build_detailed_transcript(segments):
 
     transcript_parts = []
 
     for segment in segments:
 
-        start = round(
-            segment.start,
-            2
-        )
-
-        end = round(
-            segment.end,
-            2
-        )
-
-        text = (
-            segment.text
-            .strip()
-        )
+        start = round(segment["start"], 2)
+        end = round(segment["end"], 2)
+        text = segment["text"].strip()
 
         transcript_parts.append(
-
-            f"""
-[START: {start}s - END: {end}s]
-
-{text}
-"""
+            f"[START: {start}s - END: {end}s]\n\n{text}\n"
         )
 
-    return "\n".join(
-        transcript_parts
-    )
+    return "\n".join(transcript_parts)
 
 
 # -----------------------------------
@@ -175,30 +150,22 @@ def transcribe_file(
         # TRANSCRIBE
         # -----------------------------------
 
-        segments, info = model.transcribe(
+        with open(transcription_path, "rb") as audio_file:
 
-            transcription_path,
-
-            beam_size=5,
-
-            language="en"
-        )
+            transcription = client.audio.transcriptions.create(
+                file=audio_file,
+                model="whisper-large-v3",
+                response_format="verbose_json",
+                language="en"
+            )
 
         # CONVERT GENERATOR TO LIST
 
-        segments = list(
-            segments
-        )
+        segments = transcription.segments
 
         # FULL TEXT
 
-        full_text = " ".join(
-
-            [
-                segment.text
-                for segment in segments
-            ]
-        ).strip()
+        full_text = transcription.text
 
         # DETAILED TIMELINE
 
@@ -230,13 +197,13 @@ def transcribe_file(
 
                 {
                     "start":
-                        segment.start,
+                        segment["start"],
 
                     "end":
-                        segment.end,
+                        segment["end"],
 
                     "text":
-                        segment.text
+                        segment["text"]
                 }
 
                 for segment in segments
