@@ -280,19 +280,19 @@ Required JSON structure:
   ],
 
   "important_points": [
-     {
+     {{
         "title": "",
         "description": ""
-      }
+      }}
   ],
 
   "detailed_discussions": [],
 
   "technical_topics_discussed": [
-      {
+      {{
         "topic": "",
         "details": ""
-      }
+      }}
   ],
 
   "business_topics_discussed": [],
