@@ -13,7 +13,7 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
 
-    allow_origins=["https://prakash22-26-ai-meeting-intelligence-eight.vercel.app"],
+    allow_origins=["*"],
 
     allow_credentials=False,
 
