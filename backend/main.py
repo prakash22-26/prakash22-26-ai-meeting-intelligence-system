@@ -15,7 +15,7 @@ app.add_middleware(
 
     allow_origins=["https://prakash22-26-ai-meeting-intelligenc.vercel.app"],
 
-    allow_credentials=True,
+    allow_credentials=False,
 
     allow_methods=["*"],
 
